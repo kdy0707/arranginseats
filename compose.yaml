@@ -17,7 +17,7 @@ services:
     restart: always
     
   app:
-    container_name: arranginseats-app
+    container_name: arrangingseats-app
     image: openjdk:17-alpine
     ports:
       - "8082:8080"
