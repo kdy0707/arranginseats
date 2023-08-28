@@ -1,7 +1,8 @@
 version: "3.8"
 
 services:
-  mariadb:
+  database:
+    container_name: database
     image: mariadb:10
     ports:
       - 3306:3306
@@ -25,8 +26,10 @@ services:
       - ./:/app
     working_dir: /app
     command: ["./gradlew", "bootrun"]
+    networks:
+      - backend
     depends_on:
-      - mariadb
+      - database
     restart: always
 
 networks:

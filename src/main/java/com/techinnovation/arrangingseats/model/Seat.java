@@ -1,6 +1,8 @@
 package com.techinnovation.arrangingseats.model;
 
-import jakarta.inject.Named;
+
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,13 +15,13 @@ import lombok.Setter;
 public class Seat {
 
     @Id
-    @Named("seat_no")
+    @Column(name = "seat_no")
     private int seatNo;
     
-    @Named("seat_row")
+    @Column(name = "seat_row")
     private String seatRow;
 
-    @Named("seat_col")
+    @Column(name = "seat_col")
     private String seatCol;
 
     private String status;

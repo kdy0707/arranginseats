@@ -2,7 +2,7 @@ package com.techinnovation.arrangingseats.model;
 
 import java.util.Date;
 
-import jakarta.inject.Named;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,25 +18,25 @@ import lombok.Setter;
 @Table(name = "rental")
 public class Rental {
     @Id
-    @Named("rental_no")
+    @Column(name = "rental_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rentalNo;
 
     @NotNull
-    @Named("user_id")
+    @Column(name = "user_id")
     @Size(max = 11)
     private String userId;
 
     @NotNull
-    @Named("seat_no")
+    @Column(name = "seat_no")
     private int seatNo;
 
     @NotNull
-    @Named("start_Date")
+    @Column(name = "start_Date")
     private Date startDate;
 
     @NotNull
-    @Named("end_Date")
+    @Column(name = "end_Date")
     private Date endDate;
 
     public Rental() {};
