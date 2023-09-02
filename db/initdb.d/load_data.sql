@@ -1,0 +1,1 @@
+LOAD DATA INFILE './arranginseats_seat.csv' INTO TABLE seat FIELDS TERMINATED BY ',' (`seat_no`, `seat_row`, `seat_col`, `row_len`, `col_len`);
