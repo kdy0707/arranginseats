@@ -1,0 +1,46 @@
+spring:
+    config:
+        activate:
+            on-profile: local
+    datasource:
+        driverClassName: org.mariadb.jdbc.Driver
+        url: jdbc:mariadb://localhost:3308/arranginseats?useSSL=false
+        username: inti
+        password: inti1234
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        properties:
+            format_sql: true
+        database: mysql    
+        database-platform: org.hibernate.dialect.MySQLDialect
+
+# App Properties
+bezkoder:
+    openapi:
+        dev-url: http://localhost:8085
+
+application:
+  security:
+    jwt:
+      secret-key: 743777217A25432A462D4A614E635266556A586E3272357538782F413F442847
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
+
+logging:
+    level:
+        org:
+        springframework:
+            security: DEBUG
+            web: DEBUG
+            data: DEBUG
+            hibernate: DEBUG
+            jpa: DEBUG
+            sql: DEBUG
+            jwt: DEBUG
+            bezkoder: DEBUG
+
+# # Swagger
+# spring.mvc.pathmatch.matching-strategy=ant_path_matcher
