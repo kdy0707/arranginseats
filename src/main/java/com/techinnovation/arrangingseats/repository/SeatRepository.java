@@ -7,4 +7,5 @@ import com.techinnovation.arrangingseats.model.Seat;
 import com.techinnovation.arrangingseats.model.User;
 
 public interface SeatRepository extends JpaRepository<Seat, String> {
+    
 }

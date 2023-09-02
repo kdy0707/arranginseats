@@ -1,5 +1,7 @@
 package com.techinnovation.arrangingseats.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.techinnovation.arrangingseats.security.jwt.AuthEntryPointJwt;
+import com.techinnovation.arrangingseats.security.jwt.JwtService;
 import com.techinnovation.arrangingseats.service.SeatService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -17,7 +22,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SeatController {
 
+  private static final Logger logger = LoggerFactory.getLogger(SeatController.class);
+
   private final SeatService seatService;
+  private final JwtService jwtService;
 
   @GetMapping("/")
   public ResponseEntity<?> list() throws Exception {
@@ -25,8 +33,17 @@ public class SeatController {
   }
 
   @GetMapping("/{number}")
-  public ResponseEntity<?> getSeat(@PathVariable String number) {
-    return null;
+  public ResponseEntity<?> getSeat(@PathVariable("number") String number) throws Exception {
+    return ResponseEntity.ok(seatService.getSeatByNumber(number));
   }
-  
+
+  @PostMapping("/mySeat")
+  public ResponseEntity<?> getMySeat(HttpServletRequest request) throws Exception {
+    String authHeader = request.getHeader("Authorization");
+    String jwt = authHeader.substring(7);
+    String loginId = jwtService.extractUsername(jwt);
+
+    logger.info("loginId ======" + loginId);
+    return ResponseEntity.ok(seatService.getMySeat(loginId));
+  }
 }

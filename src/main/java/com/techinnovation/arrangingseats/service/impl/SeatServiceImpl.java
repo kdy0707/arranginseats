@@ -12,6 +12,7 @@ import com.techinnovation.arrangingseats.model.Seat;
 import com.techinnovation.arrangingseats.model.User;
 import com.techinnovation.arrangingseats.payload.response.SeatInfoResponse;
 import com.techinnovation.arrangingseats.payload.response.SeatUserInfo;
+import com.techinnovation.arrangingseats.payload.response.SingleSeatInfoResponse;
 import com.techinnovation.arrangingseats.repository.Rentalrepository;
 import com.techinnovation.arrangingseats.repository.SeatRepository;
 import com.techinnovation.arrangingseats.repository.UserRepository;
@@ -56,6 +57,8 @@ public class SeatServiceImpl implements SeatService {
           .seatRow(seat.getSeatRow())
           .seatCol(seat.getSeatCol())
           .occupancy(!"Empty".equals(seat.getStatus()) ? true : false)
+          .seatColLen(seat.getSeatCol())
+          .seatRowLen(seat.getSeatRow())
           .seatUserInfo(seatUserInfo)
           .build());
     }
@@ -64,7 +67,7 @@ public class SeatServiceImpl implements SeatService {
   }
 
   @Override
-  public SeatInfoResponse getSeatByNumber(String seatNumber) throws Exception {
+  public SingleSeatInfoResponse getSeatByNumber(String seatNumber) throws Exception {
     SeatUserInfo seatUserInfo = new SeatUserInfo();
     Optional<Seat> seat = seatRepository.findById(seatNumber);
 
@@ -72,7 +75,7 @@ public class SeatServiceImpl implements SeatService {
       throw new Exception("좌석이 없습니다.");
     }
 
-    Optional<Rental> rental = rentalrepository.findByseatNo(seat.get().getSeatNo());
+    Optional<Rental> rental = rentalrepository.findBySeatNo(seat.get().getSeatNo());
 
     if (rental.isPresent()) {
       Optional<User> user = userRepository.findById(rental.get().getUserId());
@@ -82,7 +85,7 @@ public class SeatServiceImpl implements SeatService {
       seatUserInfo.setSPosition(user.get().getPosition());
     }
 
-    return SeatInfoResponse.builder()
+    return SingleSeatInfoResponse.builder()
         .id(seat.get().getSeatNo())
         .occupancy(!"Empty".equals(seat.get().getStatus()) ? true : false)
         .build();
@@ -90,14 +93,40 @@ public class SeatServiceImpl implements SeatService {
 
   @Override
   public void delteSeat(String rentalNo) {
-    
-
     throw new UnsupportedOperationException("Unimplemented method 'delteSeat'");
   }
 
   @Override
   public List<SeatInfoResponse> searchSeatbyName(String name) {
     throw new UnsupportedOperationException("Unimplemented method 'searchSeatbyName'");
+  }
+
+  @Override
+  public SeatInfoResponse getMySeat(String userId) throws Exception {
+    SeatUserInfo seatUserInfo = new SeatUserInfo();
+    Optional<Rental> rental = rentalrepository.findByUserId(userId);
+
+    if (rental.isEmpty()) {
+      throw new Exception("좌석이 없습니다.");
+    } else {
+      Optional<User> user = userRepository.findById(rental.get().getUserId());
+      seatUserInfo.setSName(user.get().getUsername());
+      seatUserInfo.setSPart(user.get().getDepartment());
+      seatUserInfo.setSPhoneNumber(user.get().getLoginId());
+      seatUserInfo.setSPosition(user.get().getPosition());
+  
+      Optional<Seat> seat = seatRepository.findById(Integer.toString(rental.get().getSeatNo()));
+  
+      return  SeatInfoResponse.builder()
+            .id(seat.get().getSeatNo())
+            .seatRow(seat.get().getSeatRow())
+            .seatCol(seat.get().getSeatCol())
+            .occupancy(!"Empty".equals(seat.get().getStatus()) ? true : false)
+            .seatColLen(seat.get().getSeatCol())
+            .seatRowLen(seat.get().getSeatRow())
+            .seatUserInfo(seatUserInfo)
+            .build();
+    }
   }
 
 }

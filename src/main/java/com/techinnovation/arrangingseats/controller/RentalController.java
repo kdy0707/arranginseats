@@ -15,18 +15,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RentalController {
 
-  @PostMapping("/mySeat")
-  public ResponseEntity<?> getMySeat() {
+  @GetMapping("/searchSeat/{name}")
+  public ResponseEntity<?> searchSeat(@PathVariable String name) {
     return null;
   }
 
   @DeleteMapping("/{number}")
   public ResponseEntity<?> cancleSeat(@PathVariable String number) {
-    return null;
-  }
-
-  @GetMapping("/searchSeat/{name}")
-  public ResponseEntity<?> searchSeat(@PathVariable String name) {
     return null;
   }
 

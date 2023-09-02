@@ -6,7 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.techinnovation.arrangingseats.model.Rental;
 import com.techinnovation.arrangingseats.model.User;
+import java.util.List;
+
 
 public interface Rentalrepository extends JpaRepository<Rental, String>{
-  Optional<Rental> findByseatNo(int seatNo);
+  Optional<Rental> findBySeatNo(int seatNo);
+  Optional<Rental> findByUserId(String userId);
 }
