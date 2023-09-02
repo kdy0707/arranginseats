@@ -19,7 +19,7 @@ spring:
 # App Properties
 bezkoder:
     openapi:
-        dev-url: http://localhost:8083
+        dev-url: http://localhost:8085
 
 application:
   security:
