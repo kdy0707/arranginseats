@@ -19,13 +19,16 @@ services:
     
   app:
     container_name: arrangingseats-app
-    image: openjdk:17-alpine
+    build:
+      context: . ## build Docker file location
+      dockerfile: Dockerfile ## build file name
+    # image: openjdk:17-alpine
     ports:
       - "8085:8085"
-    volumes:
-      - ./:/app
-    working_dir: /app
-    command: ["./gradlew", "bootrun"]
+    #volumes:
+    #  - ./:/app
+    #working_dir: /app
+    # command: ["./gradlew", "bootrun"]
     networks:
       - backend
     depends_on:
