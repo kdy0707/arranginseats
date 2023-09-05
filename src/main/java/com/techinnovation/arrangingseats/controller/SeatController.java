@@ -37,7 +37,22 @@ public class SeatController {
     return ResponseEntity.ok(seatService.getSeatByNumber(number));
   }
 
-  @PostMapping("/mySeat")
+  @DeleteMapping("/{number}")
+  public ResponseEntity<?> cancleSeat(@PathVariable("number") String number, HttpServletRequest request) throws Exception {
+    String authHeader = request.getHeader("Authorization");
+    String jwt = authHeader.substring(7);
+    String loginId = jwtService.extractUsername(jwt);
+
+    logger.info("loginId ======" + loginId);
+    return ResponseEntity.ok(seatService.deleteSeat(number, loginId));
+  }
+
+  @GetMapping("/searchSeat/{name}")
+  public ResponseEntity<?> searchSeat(@PathVariable("name") String name) throws Exception {
+    return ResponseEntity.ok(seatService.searchSeatbyName(name));
+  }
+
+  @GetMapping("/mySeat")
   public ResponseEntity<?> getMySeat(HttpServletRequest request) throws Exception {
     String authHeader = request.getHeader("Authorization");
     String jwt = authHeader.substring(7);

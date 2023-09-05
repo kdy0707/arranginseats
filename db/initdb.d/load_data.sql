@@ -1,1 +1,2 @@
-LOAD DATA INFILE './arranginseats_seat.csv' INTO TABLE seat FIELDS TERMINATED BY ',' (`seat_no`, `seat_row`, `seat_col`, `row_len`, `col_len`);
+LOAD DATA INFILE '/docker-entrypoint-initdb.d/arranginseats_seat.csv' INTO TABLE seat FIELDS TERMINATED BY ',' (`seat_no`, `seat_row`, `seat_col`, `row_len`, `col_len`);
+-- LOAD DATA INFILE './arranginseats_token_seq.csv' INTO TABLE seat FIELDS TERMINATED BY ',' (`next_val`);

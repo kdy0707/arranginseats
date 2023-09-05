@@ -26,8 +26,3 @@ CREATE TABLE seat (
     `status`     VARCHAR(10)  DEFAULT 'Empty',
     PRIMARY KEY (seat_no)
 );
-
-
-
-
-

@@ -2,6 +2,7 @@ package com.techinnovation.arrangingseats.service;
 
 import java.util.List;
 
+import com.techinnovation.arrangingseats.payload.response.SeatDeleteResponse;
 import com.techinnovation.arrangingseats.payload.response.SeatInfoResponse;
 import com.techinnovation.arrangingseats.payload.response.SingleSeatInfoResponse;
 
@@ -13,8 +14,8 @@ public interface SeatService {
 
   public SeatInfoResponse getMySeat(String userId) throws Exception;
 
-  public void delteSeat(String rentalNo);
+  public SeatDeleteResponse deleteSeat(String seatNumber, String loginId) throws Exception;
 
-  public List<SeatInfoResponse> searchSeatbyName(String name);
+  public List<SeatInfoResponse> searchSeatbyName(String name) throws Exception;
   
 }

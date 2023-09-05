@@ -9,7 +9,7 @@ import com.techinnovation.arrangingseats.model.User;
 import java.util.List;
 
 
-public interface Rentalrepository extends JpaRepository<Rental, String>{
+public interface Rentalrepository extends JpaRepository<Rental, Long>{
   Optional<Rental> findBySeatNo(int seatNo);
   Optional<Rental> findByUserId(String userId);
 }
